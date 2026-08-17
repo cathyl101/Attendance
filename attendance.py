@@ -1,13 +1,11 @@
 import datetime
 import json
 import os
-from pathlib import Path
 
 class Attendance:
     def __init__(self):
-        # 保存到桌面
-        desktop = Path.home() / "Desktop"
-        self.file = str(desktop / "attendance.json")
+        # 直接拼接路径，不用 pathlib
+        self.file = os.path.join(os.environ.get('USERPROFILE', os.environ.get('HOME')), 'Desktop', 'attendance.json')
         self.today = datetime.datetime.now().strftime("%Y-%m-%d")
         self.data = json.load(open(self.file)) if os.path.exists(self.file) else {}
         
